@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选项卡</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .small{width: 400px;height: 50px;border: 1px solid black;margin: 50px auto;background-color: blueviolet;}
+        .big{width: 400px;height: 500px;border: 1px solid black;margin:auto;}
+        ul{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-evenly;
+        }
+        li{list-style: none;font-size: 30px;}
+        img{width: 400px;height: 500px;display: none;}
+    </style>
+</head>
+<body>
+    <div class="small">
+        <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>Stree</li>
+        </ul>
+    </div>
+    <div class="big">
+        <img src="" alt="">
+ 
+    </div>
+    <script>
+        var small = document.getElementsByClassName("small");
+        var big = document.getElementsByClassName("big");
+        var li = document.getElementsByTagName("li");
+        var img = document.getElementsByTagName("img");
+        var arr;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET','./Xiang.json',true);
+        xhr.send();
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(xhr.status >= 200 && xhr.status <=300){
+                    var res = JSON.parse(xhr.response);
+                    arr = res.src;
+                }else{
+                    alert('异步刷新失败');
+                }
+            }
+        }
+        for(let i = 0;i<li.length;i++){
+            li[i].onclick = function(){
+                console.log(arr);
+                // alert(i)
+                img[0].src = arr[i];
+                img[i].style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
